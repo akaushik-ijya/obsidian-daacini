@@ -1,0 +1,61 @@
+.daacini {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.daacini svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* @@-imported blocks that expand to more than one diagram (see main.js paint()) */
+.daacini.daacini-multi {
+  flex-direction: column;
+  align-items: center;
+}
+
+.daacini-item + .daacini-label {
+  margin-top: 18px;
+}
+
+.daacini-label {
+  font-size: var(--font-ui-smaller);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  align-self: flex-start;
+}
+
+.daacini-loading {
+  padding: 12px;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.daacini-error {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--background-modifier-error-hover, #e0b4b4);
+  border-radius: 8px;
+  background: var(--background-modifier-error, #fbeaea);
+  color: var(--text-error, #7f1d1d);
+}
+
+.daacini-error strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.daacini-error-msg {
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.daacini-error small {
+  color: var(--text-muted);
+}

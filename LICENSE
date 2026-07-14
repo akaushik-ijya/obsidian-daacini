@@ -1,0 +1,50 @@
+IjyaLabs DaaCini — Proprietary License
+Copyright (c) 2026 IjyaLabs (Arun Kaushik). All rights reserved.
+
+This software, including its source code, design, and all associated materials
+(the "Software"), is the exclusive property of the copyright holder. It is made
+available at no cost, but it is NOT open-source and NOT public domain.
+
+1. Permitted, free of charge
+   a. Use of the Software for personal and internal business purposes, including
+      running the studio, the `daacini` CLI, and the HTTP API, and generating diagrams.
+   b. Submitting bug reports, feedback, and suggestions for improvement. By
+      submitting a suggestion you grant the copyright holder a perpetual,
+      royalty-free right to use it without obligation.
+
+2. Not permitted without the prior written permission of the copyright holder
+   a. Copying, redistributing, publishing, mirroring, sublicensing, renting,
+      leasing, or selling the source code or any substantial portion of it.
+   b. Creating derivative works from the source code, or using it to build a
+      competing or substantially similar product or service.
+   c. Removing or altering this license, the copyright notices, or the NOTICE
+      file.
+
+3. Ownership
+   The copyright holder retains all right, title, and interest in and to the
+   Software. No rights are granted except those expressly stated above. Nothing
+   here transfers ownership of the source code to any user, contributor, or
+   third party.
+
+4. Third-party names and marks
+   See the NOTICE file. All third-party product, company, and service names and
+   any icons or glyphs evoking them are used for identification and
+   interoperability reference only and imply no affiliation or endorsement.
+
+5. No warranty
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING
+   FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+6. Hosted service
+   Diagrams you author remain yours. Sources submitted to the hosted service
+   may be retained briefly for debugging (see the service's privacy page).
+   The hosted service is for personal and private use only.
+
+For permissions beyond the scope of this license, contact the copyright holder:
+daacini@ijyalabs.in (support/feedback) · legal@ijlabs.in (licensing and legal).
+
+NOTE: This is a plain-language proprietary license, not legal advice; have it
+reviewed by a qualified professional before relying on it commercially.
