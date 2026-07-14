@@ -119,7 +119,14 @@ module.exports = class DaaCiniPlugin extends Plugin {
       if (items.length > 1) {
         wrap.createDiv({ cls: "daacini-label", text: `${i + 1} / ${items.length}${item.kind ? " · " + item.kind : ""}` });
       }
-      wrap.createDiv({ cls: "daacini-item" }).innerHTML = item.svg;
+      const holder = wrap.createDiv({ cls: "daacini-item" });
+      // Parse the returned SVG as XML and append the element (rather than
+      // assigning raw markup) — the service is trusted, but this is the safer
+      // DOM-building pattern and keeps the SVG namespace intact.
+      const doc = new DOMParser().parseFromString(item.svg, "image/svg+xml");
+      const svgEl = doc.documentElement;
+      if (svgEl && svgEl.nodeName.toLowerCase() === "svg") holder.appendChild(svgEl);
+      else holder.setText("could not parse the rendered SVG");
     }
   }
 
