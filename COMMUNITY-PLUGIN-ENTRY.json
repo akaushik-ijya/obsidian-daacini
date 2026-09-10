@@ -2,6 +2,6 @@
 	"id": "daacini",
 	"name": "IjyaLabs DaaCini — Diagram-as-Code",
 	"author": "Arun R Kaushik",
-	"description": "Render network, cloud, security, and architecture diagrams from text — 28 diagram kinds — via the DaaCini service (hosted or self-hosted).",
+	"description": "Render diagrams from text in fenced code blocks — network, cloud, security, architecture, sequence, flowchart, ER and Gantt among them — via the DaaCini service, hosted or self-hosted.",
 	"repo": "akaushik-ijya/obsidian-daacini"
 }

@@ -1,9 +1,9 @@
 {
   "id": "daacini",
-  "name": "IjyaLabs DaaCini \u2014 Diagram-as-Code",
-  "version": "1.0.2",
+  "name": "IjyaLabs DaaCini — Diagram-as-Code",
+  "version": "2.8.5",
   "minAppVersion": "1.0.0",
-  "description": "Render ```daacini fenced blocks (plus legacy ```mermaid-pp) into diagrams via the IjyaLabs DaaCini service \u2014 hosted by default, or your own self-hosted `daacini serve`. Source in, SVG out; no engine bundled.",
+  "description": "Render ```daacini fenced blocks (plus legacy ```mermaid-pp) into diagrams via the IjyaLabs DaaCini service — hosted by default, or your own self-hosted `daacini serve`. Source in, SVG out; no engine bundled.",
   "author": "Arun R Kaushik",
   "isDesktopOnly": false,
   "authorUrl": "https://ijyalabs.in",

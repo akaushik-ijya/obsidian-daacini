@@ -90,8 +90,18 @@ module.exports = class DaaCiniPlugin extends Plugin {
       const res = await requestUrl({ url: base + "/render", method: "POST", contentType: "text/plain", headers, body, throw: false });
       if (res.status !== 200) {
         let msg = `HTTP ${res.status}`;
-        try { msg = JSON.parse(res.text).error || msg; } catch (_) { /* not JSON */ }
-        throw new Error(msg);
+        // ⛔ THE TYPED REASON REACHES THE NOTE. A refusal carries `{ code, observed }`;
+        // keeping only the sentence meant a reader could not tell a diagram they must fix
+        // from a service that was briefly busy — the one case where the answer is "wait".
+        let body = null;
+        try { body = JSON.parse(res.text); msg = body.error || msg; } catch (_) { /* not JSON */ }
+        const err = new Error([429, 502, 503, 504].includes(res.status)
+          ? `${msg} — the service was busy; this is not a problem with your diagram. Try again in a moment.`
+          : msg);
+        err.status = res.status;
+        if (body && body.code) err.code = body.code;
+        if (body && body.observed) err.observed = body.observed;
+        throw err;
       }
       // Imports request JSON back (single diagram → { kind, svg }, several →
       // { diagrams: [...] }); a plain block gets the raw SVG body as before.
@@ -106,7 +116,7 @@ module.exports = class DaaCiniPlugin extends Plugin {
       err.createEl("strong", { text: "DaaCini couldn't render this diagram" });
       err.createEl("div", { cls: "daacini-error-msg", text: String((e && e.message) || e) });
       const hint = withImports
-        ? `Endpoint: ${this.settings.endpoint} — @@ imports need the server started with --imports-root <vault> (see the plugin README).`
+        ? `Endpoint: ${this.settings.endpoint} — @@ imports need the server started with --imports-root <vault>; remote URLs also need --remote-import-allow <literal-ip> (see the plugin README).`
         : `Endpoint: ${this.settings.endpoint} — is the service running (\`daacini serve\`)?`;
       err.createEl("small", { text: hint });
     }
@@ -133,6 +143,28 @@ module.exports = class DaaCiniPlugin extends Plugin {
   async saveSettings() { await this.saveData(this.settings); }
 };
 
+// The twelve shipped themes, offered as a DROPDOWN rather than free text.
+// These were text fields whose help said "paper, mist, sky, candy or 1–4" —
+// under-advertising by two thirds, and accepting anything: an unrecognised name
+// is rejected nowhere, so resolveTheme falls back to  and a typo renders
+// the default while appearing to have been applied. A dropdown makes the typo
+// impossible and the other eight themes discoverable.
+// Kept in step with core/theme.ts by tests/obsidian-settings-vocabulary.test.mjs.
+const THEME_CHOICES = [
+  ["paper", "paper — light"],
+  ["mist", "mist — light"],
+  ["sky", "sky — light"],
+  ["candy", "candy — light"],
+  ["slate", "slate — dark"],
+  ["dusk", "dusk — dark"],
+  ["midnight", "midnight — dark"],
+  ["carbon", "carbon — dark"],
+  ["mono-light", "mono-light — light"],
+  ["mono-dark", "mono-dark — dark"],
+  ["contrast-light", "contrast-light — light"],
+  ["contrast-dark", "contrast-dark — dark"],
+];
+
 class DaaCiniSettingTab extends PluginSettingTab {
   constructor(app, plugin) { super(app, plugin); this.plugin = plugin; }
 
@@ -158,16 +190,22 @@ class DaaCiniSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Light theme")
-      .setDesc("DaaCini theme name/number for light mode (e.g. paper, mist, sky, candy or 1–4).")
-      .addText((t) => t
-        .setValue(this.plugin.settings.lightTheme)
-        .onChange(async (v) => { this.plugin.settings.lightTheme = v.trim() || "paper"; await this.plugin.saveSettings(); this.plugin.cache.clear(); }));
+      .setDesc("DaaCini theme for light mode.")
+      .addDropdown((d) => {
+        for (const [value, label] of THEME_CHOICES) d.addOption(value, label);
+        return d
+          .setValue(this.plugin.settings.lightTheme)
+          .onChange(async (v) => { this.plugin.settings.lightTheme = v || "paper"; await this.plugin.saveSettings(); this.plugin.cache.clear(); });
+      });
 
     new Setting(containerEl)
       .setName("Dark theme")
-      .setDesc("DaaCini theme name/number for dark mode (e.g. slate, dusk, midnight, carbon or 5–8).")
-      .addText((t) => t
-        .setValue(this.plugin.settings.darkTheme)
-        .onChange(async (v) => { this.plugin.settings.darkTheme = v.trim() || "midnight"; await this.plugin.saveSettings(); this.plugin.cache.clear(); }));
+      .setDesc("DaaCini theme for dark mode.")
+      .addDropdown((d) => {
+        for (const [value, label] of THEME_CHOICES) d.addOption(value, label);
+        return d
+          .setValue(this.plugin.settings.darkTheme)
+          .onChange(async (v) => { this.plugin.settings.darkTheme = v || "midnight"; await this.plugin.saveSettings(); this.plugin.cache.clear(); });
+      });
   }
 }

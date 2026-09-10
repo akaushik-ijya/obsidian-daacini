@@ -1,8 +1,8 @@
 # DaaCini for Obsidian
 
 Render **[DaaCini](https://daacini.ijyalabs.in)** diagrams-as-code — network, cloud,
-security, architecture, and 24 more kinds — live inside your notes. Write a fenced
-block and it renders in Reading view:
+security, architecture, sequence, flowchart, ER, Gantt and many more kinds — live
+inside your notes. Write a fenced block and it renders in Reading view:
 
 <pre>
 ```daacini
